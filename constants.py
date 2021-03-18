@@ -145,4 +145,4 @@ GRAPH_OBSERVABLES = frozenset([
     "networkSourcePort",
     "url",
     "userAgent",
-])‘
+])
