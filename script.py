@@ -25,7 +25,6 @@ def _get_events():
 
 def _graph_post_request_body_generator(parsed_events):
     for event in parsed_events:
-        print(event)
         request_body_metadata = {
             **{field: event[field] for field in REQUIRED_GRAPH_METADATA},
             **{field: event[field] for field in OPTIONAL_GRAPH_METADATA if field in event},
@@ -34,13 +33,12 @@ def _graph_post_request_body_generator(parsed_events):
             'threatType': 'watchlist',
             'targetProduct': config.targetProduct,
         }
-        for request_object in event['request_objects']:
-            request_body = {
+        request_body = {
                 **request_body_metadata.copy(),
                 **request_object.__dict__,
                 'tags': request_body_metadata.copy()['tags'] + request_object.__dict__['tags']
             }
-            yield request_body
+        yield request_body
 
 
 def _handle_timestamp(parsed_event):
@@ -67,6 +65,8 @@ def main():
         RequestManager.read_tiindicators()
         sys.exit()
     config.verbose_log = ('-v' in sys.argv)
+    config.misp_key = sys.argv[1]
+    config.misp_domain = sys.argv[2]
     print('fetching & parsing data from misp...')
     events = _get_events()
     parsed_events = list()
