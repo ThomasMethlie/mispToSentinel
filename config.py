@@ -3,13 +3,13 @@ graph_auth = {
     'client_id': '<client id>',
     'client_secret': '<client secret>',
 }
-targetProduct = '<targetProduct>'
+targetProduct = 'Azure Sentinel'
 misp_event_filters = {
-    'org': '',
-    'category': ''
+    'last': '1h',
+    'include_correlations': 0
 }
-action = '<action>'
+action = 'alert'
 passiveOnly = False
-days_to_expire = 5
-misp_verifycert = False
+days_to_expire = 30
+misp_verifycert = True
 
